@@ -36,8 +36,7 @@ function App() {
                 }}
                 onContextMenu={(e) => {
                   e.preventDefault();
-                  const newBoard = updateFlag(board, i, j);
-                  setBoard(newBoard);
+                  handleUpdateFlag(i, j);
                 }}
               >
                 {cell.hasFlag
