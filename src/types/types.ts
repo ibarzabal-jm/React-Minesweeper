@@ -6,7 +6,6 @@ export interface Cell {
   row: number;
   column: number;
 }
+export type Board = Cell[][];
 
-export interface Board {
-  cells: Cell[][];
-}
+export type MinesMap = number[][];

@@ -1,15 +1,25 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import { createBoard } from "./utils/createBoard";
-import { Cell } from "./types/types";
+import { Board, MinesMap } from "./types/types";
 import { revealCell } from "./utils/revealCell";
+import { updateFlag } from "./utils/updateFlag";
 
 function App() {
-  const [board, setBoard] = useState<Cell[][]>(createBoard(8, 8, 2));
+  const [board, setBoard] = useState<Board>([]);
+  const [mines, setMines] = useState<MinesMap>([]);
 
   useEffect(() => {
-    console.log(board);
-  }, [board]);
+    const newBoard = createBoard(5, 5, 5);
+    setBoard(newBoard.board);
+    setMines(newBoard.minesLocations);
+  }, []);
+
+  const handleUpdateFlag = (x: number, y: number) => {
+    if (board[x][y].isOpen) return;
+    const newBoard = updateFlag(board, x, y);
+    setBoard(newBoard);
+  };
 
   return (
     <div className="App">
@@ -24,8 +34,15 @@ function App() {
                   const newBoard = revealCell(board, i, j);
                   setBoard(newBoard);
                 }}
+                onContextMenu={(e) => {
+                  e.preventDefault();
+                  const newBoard = updateFlag(board, i, j);
+                  setBoard(newBoard);
+                }}
               >
-                {!cell.isOpen
+                {cell.hasFlag
+                  ? "Flag"
+                  : !cell.isOpen
                   ? "-"
                   : cell.hasMine
                   ? "X"

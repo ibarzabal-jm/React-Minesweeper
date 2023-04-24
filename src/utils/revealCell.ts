@@ -1,10 +1,10 @@
-import { Cell } from "../types/types";
+import { Board } from "../types/types";
 
 export const revealCell = (
-  board: Cell[][],
+  board: Board,
   row: number,
   column: number
-): Cell[][] => {
+): Board => {
   if (board[row][column].isOpen) {
     return board;
   }

@@ -1,7 +1,7 @@
-import { Cell } from "../types/types";
+import { Board, Cell, MinesMap } from "../types/types";
 
-const createGrid = (rows: number, columns: number): Cell[][] => {
-  const grid: Cell[][] = [];
+const createGrid = (rows: number, columns: number): Board => {
+  const grid: Board = [];
   for (let row = 0; row < rows; row++) {
     grid.push([]);
     for (let column = 0; column < columns; column++) {
@@ -21,7 +21,7 @@ const createGrid = (rows: number, columns: number): Cell[][] => {
 
 const randomizeBombs = (grid: Cell[][], bombs: number) => {
   let bombsPlaced = 0;
-  const minesLocations: number[][] = [];
+  const minesLocations: MinesMap = [];
   while (bombsPlaced < bombs) {
     const randomRow = Math.floor(Math.random() * grid.length);
     const randomColumn = Math.floor(Math.random() * grid[0].length);
@@ -35,7 +35,7 @@ const randomizeBombs = (grid: Cell[][], bombs: number) => {
   return { grid, minesLocations };
 };
 
-const calculateNearMines = (grid: Cell[][], minesLocations: number[][]) => {
+const calculateNearMines = (grid: Board, minesLocations: MinesMap): Board => {
   const newGrid = grid.map((row) =>
     row.map((cell) => {
       if (cell.hasMine) {
@@ -51,9 +51,19 @@ const calculateNearMines = (grid: Cell[][], minesLocations: number[][]) => {
   return newGrid;
 };
 
-export const createBoard = (rows: number, columns: number, bombs: number) => {
+export const createBoard = (
+  rows: number,
+  columns: number,
+  bombs: number
+): {
+  board: Board;
+  minesLocations: MinesMap;
+} => {
   const grid = createGrid(rows, columns);
   const { grid: gridWithBombs, minesLocations } = randomizeBombs(grid, bombs);
   const newGrid = calculateNearMines(gridWithBombs, minesLocations);
-  return newGrid;
+  return {
+    board: newGrid,
+    minesLocations,
+  };
 };
