@@ -9,3 +9,5 @@ export interface Cell {
 export type Board = Cell[][];
 
 export type MinesMap = number[][];
+
+export type GameStatus = "playing" | "win" | "lose";
