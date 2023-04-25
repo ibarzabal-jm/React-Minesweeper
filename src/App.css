@@ -1,4 +1,4 @@
-#root{
+#root {
   width: 100vw;
   height: 100vh;
   display: flex;
@@ -8,37 +8,50 @@
   width: 100%;
 }
 
-.App{
+.App {
   width: 100vw;
   height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-  width: 100%;
-
-}
-
-.minesweeper{
   display: flex;
   flex-direction: column;
-
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
 
-.row{
+.minesweeper {
+  display: flex;
+  flex-direction: column;
+}
+
+.row {
   display: flex;
 }
 
-.cell{
+.cell {
   display: flex;
   border: 1px solid white;
   width: 50px;
+  flex: 1;
   height: 50px;
   justify-content: center;
   align-items: center;
   cursor: pointer;
 }
 
+.container {
+  max-width: 85%;
+  margin: 0 auto;
+}
 
+@media (min-width: 1440px) {
+  .container {
+    max-width: 1200px;
+  }
+}
 
+@media (min-width: 1600px) {
+  .container {
+    max-width: 1440px;
+  }
+}
