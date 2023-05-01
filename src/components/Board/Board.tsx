@@ -1,28 +1,23 @@
-import { useBoard } from "../../hooks/useBoard";
+import { Board as IBoard } from "../../types/types";
 import Cell from "../Cell/Cell";
 
 interface IBoardProps {
-  columns: number;
-  rows: number;
-  mines: number;
+  table: IBoard;
+  revealCell: (row: number, column: number) => void;
+  addFlag: (row: number, column: number) => void;
 }
 
-const Board = ({ columns = 8, rows = 8, mines = 5 }: IBoardProps) => {
-  const { board, handleRevealCell, handleUpdateFlag } = useBoard(
-    columns,
-    rows,
-    mines
-  );
+const Board = ({ table, addFlag, revealCell }: IBoardProps) => {
   return (
     <div>
-      {board.map((row, i) => (
+      {table.map((row, i) => (
         <div key={i} className="row">
           {row.map((cell) => (
             <Cell
               key={`${cell.column}y+${cell.row}x`}
               details={cell}
-              addFlag={handleUpdateFlag}
-              revealCell={handleRevealCell}
+              addFlag={addFlag}
+              revealCell={revealCell}
             />
           ))}
         </div>

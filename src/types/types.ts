@@ -11,3 +11,10 @@ export type Board = Cell[][];
 export type MinesMap = number[][];
 
 export type GameStatus = "playing" | "win" | "lose";
+
+export interface ILevel {
+  name: string;
+  rows: number;
+  columns: number;
+  mines: number;
+}

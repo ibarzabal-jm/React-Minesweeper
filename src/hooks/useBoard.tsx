@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Board, GameStatus } from "../types/types";
 import { createBoard } from "../utils/createBoard";
 import { updateFlag } from "../utils/updateFlag";
@@ -11,13 +11,17 @@ export const useBoard = (row: number, column: number, mines: number) => {
   const [revealedCells, setRevealedCells] = useState(0);
   const [gameStatus, setGameStatus] = useState<GameStatus>("playing");
 
-  useEffect(() => {
+  const startGame = useCallback(() => {
     const newBoard = createBoard(row, column, mines);
     setBoard(newBoard.board);
-    setAvailableFlags(3);
+    setAvailableFlags(mines);
     setRevealedCells(0);
     setGameStatus("playing");
   }, [column, mines, row]);
+
+  useEffect(() => {
+    startGame();
+  }, [startGame]);
 
   useEffect(() => {
     if (revealedCells === 0) return;
@@ -49,11 +53,16 @@ export const useBoard = (row: number, column: number, mines: number) => {
     setBoard(newBoard.board);
   };
 
+  const handleRestartGame = () => {
+    startGame();
+  };
+
   return {
     board,
     gameStatus,
     availableFlags,
     handleUpdateFlag,
+    handleRestartGame,
     handleRevealCell,
   };
 };
