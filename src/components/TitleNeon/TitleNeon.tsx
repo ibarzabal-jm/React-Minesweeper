@@ -40,7 +40,9 @@ const TitleNeon = ({
       {words.map((word, i) => (
         <Fragment key={i}>
           {word.split("").map((letter, j) => (
-            <span key={`${i}  ${j}`}>{letter}</span>
+            <span aria-hidden="true" key={`${i}  ${j}`}>
+              {letter}
+            </span>
           ))}{" "}
         </Fragment>
       ))}
