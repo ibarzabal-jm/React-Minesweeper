@@ -1,6 +1,5 @@
 #root {
   width: 100vw;
-  height: 100vh;
   display: flex;
   justify-content: center;
   min-width: 320px;
@@ -10,7 +9,7 @@
 
 .App {
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -19,21 +18,38 @@
   width: 100%;
 }
 
-.minesweeper {
+aside {
   display: flex;
   flex-direction: column;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
 }
 
 .row {
   display: flex;
 }
 
+.menu {
+  display: flex;
+  gap: 8px;
+  justify-content: space-between;
+}
+
 .cell {
   display: flex;
   border: 1px solid white;
-  width: 50px;
+  width: 32px;
   flex: 1;
-  height: 50px;
+  height: 32px;
   justify-content: center;
   align-items: center;
   cursor: pointer;

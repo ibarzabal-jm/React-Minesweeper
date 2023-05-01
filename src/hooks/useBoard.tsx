@@ -6,7 +6,7 @@ import { revealAllCels } from "../utils/revealAllCels";
 import { revealCell } from "../utils/revealCell";
 
 export const useBoard = (row: number, column: number, mines: number) => {
-  const [board, setBoard] = useState<Board>([]);
+  const [board, setBoard] = useState<Board>([[]]);
   const [availableFlags, setAvailableFlags] = useState<number>(0);
   const [revealedCells, setRevealedCells] = useState(0);
   const [gameStatus, setGameStatus] = useState<GameStatus>("playing");

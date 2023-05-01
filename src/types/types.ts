@@ -12,7 +12,7 @@ export type MinesMap = number[][];
 
 export type GameStatus = "playing" | "win" | "lose";
 
-export interface ILevel {
+export interface Level {
   name: string;
   rows: number;
   columns: number;

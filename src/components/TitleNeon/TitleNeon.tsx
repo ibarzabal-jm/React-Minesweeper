@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import "./TitleNeon.css";
 
 interface TitleNeonProps {
@@ -14,10 +15,12 @@ const TitleNeon = ({
   tag,
   color = "#f6b",
   textTransform = "capitalize",
-  size = "5rem",
+  size = "3.2rem",
   align = "center",
 }: TitleNeonProps) => {
   const Tag = tag as keyof JSX.IntrinsicElements;
+
+  const words = title.split(" ");
 
   return (
     <Tag
@@ -34,10 +37,12 @@ const TitleNeon = ({
         userSelect: "none",
       }}
     >
-      {title.split("").map((char, index) => (
-        <span key={index} aria-hidden="false">
-          {char}
-        </span>
+      {words.map((word, i) => (
+        <Fragment key={i}>
+          {word.split("").map((letter, j) => (
+            <span key={`${i}  ${j}`}>{letter}</span>
+          ))}{" "}
+        </Fragment>
       ))}
     </Tag>
   );

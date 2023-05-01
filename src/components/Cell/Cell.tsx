@@ -7,7 +7,18 @@ interface CellProps {
 }
 
 const nearMinesColors = ["#78c679", "#41ab5d", "#238c45", "#1b4f33"];
+
 const Cell = ({ details, addFlag, revealCell }: CellProps) => {
+  const backgroundColor = (): string => {
+    if (details.isOpen && details.hasMine) return "#f44336";
+
+    if (details.isOpen) {
+      return nearMinesColors[details.nearMines] || "#1b4f33";
+    } else {
+      return "#1e1e1e";
+    }
+  };
+
   return (
     <div
       className="cell"
@@ -17,9 +28,7 @@ const Cell = ({ details, addFlag, revealCell }: CellProps) => {
         addFlag(details.row, details.column);
       }}
       style={{
-        backgroundColor: details.isOpen
-          ? nearMinesColors[details.nearMines] || "#1b4f33"
-          : "#1e1e1e",
+        backgroundColor: backgroundColor(),
       }}
     >
       {details.hasFlag && <span>🚩</span>}

@@ -9,7 +9,7 @@ interface IBoardProps {
 
 const Board = ({ table, addFlag, revealCell }: IBoardProps) => {
   return (
-    <div>
+    <div className="board">
       {table.map((row, i) => (
         <div key={i} className="row">
           {row.map((cell) => (
