@@ -32,30 +32,39 @@ export const revealCell = (
   }
 
   if (board[row][column].nearMines === 0) {
-    if (board[row - 1]) {
-      const revealed = revealCell(newBoard, row - 1, column);
-      newBoard[row - 1][column] = revealed.board[row - 1][column];
-      flagsRemoved += revealed.flagsRemoved;
-      cellsRevealed += revealed.cellsRevealed;
-    }
-    if (board[row + 1]) {
-      const revealed = revealCell(newBoard, row + 1, column);
-      newBoard[row + 1][column] = revealed.board[row + 1][column];
-      flagsRemoved += revealed.flagsRemoved;
-      cellsRevealed += revealed.cellsRevealed;
-    }
-    if (board[row][column - 1]) {
-      const revealed = revealCell(newBoard, row, column - 1);
-      newBoard[row][column - 1] = revealed.board[row][column - 1];
-      flagsRemoved += revealed.flagsRemoved;
-      cellsRevealed += revealed.cellsRevealed;
-    }
-    if (board[row][column + 1]) {
-      const revealed = revealCell(newBoard, row, column + 1);
-      newBoard[row][column + 1] = revealed.board[row][column + 1];
-      flagsRemoved += revealed.flagsRemoved;
-      cellsRevealed += revealed.cellsRevealed;
-    }
+    const availableDirections = [
+      [row - 1, column - 1],
+      [row - 1, column],
+      [row - 1, column + 1],
+      [row, column - 1],
+      [row, column + 1],
+      [row + 1, column - 1],
+      [row + 1, column],
+      [row + 1, column + 1],
+    ];
+
+    availableDirections.forEach((direction) => {
+      const [rowDirection, columnDirection] = direction;
+
+      if (
+        rowDirection >= 0 &&
+        rowDirection < board.length &&
+        columnDirection >= 0 &&
+        columnDirection < board[0].length
+      ) {
+        if (!newBoard[rowDirection][columnDirection].isOpen) {
+          const revealedBoard = revealCell(
+            newBoard,
+            rowDirection,
+            columnDirection
+          );
+          newBoard[rowDirection][columnDirection] =
+            revealedBoard.board[rowDirection][columnDirection];
+          flagsRemoved += revealedBoard.flagsRemoved;
+          cellsRevealed += revealedBoard.cellsRevealed;
+        }
+      }
+    });
   }
 
   return { board: newBoard, flagsRemoved, cellsRevealed };
